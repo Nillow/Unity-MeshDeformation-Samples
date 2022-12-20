@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using MeshDeformation.JobSystemDeformer;
+using NUnit.Framework;
 using Unity.PerformanceTesting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +20,25 @@ namespace PerformanceTests
         [UnityTest, Performance]
         public IEnumerator JobSystem()
         {
+            yield return StartTest("JobSystem");
+        }
+
+        [UnityTest, Performance]
+        [TestCase(1, ExpectedResult = (IEnumerator) null)]
+        [TestCase(2, ExpectedResult = (IEnumerator) null)]
+        [TestCase(4, ExpectedResult = (IEnumerator) null)]
+        [TestCase(8, ExpectedResult = (IEnumerator) null)]
+        [TestCase(16, ExpectedResult = (IEnumerator) null)]
+        [TestCase(32, ExpectedResult = (IEnumerator) null)]
+        [TestCase(64, ExpectedResult = (IEnumerator) null)]
+        [TestCase(128, ExpectedResult = (IEnumerator) null)]
+        [TestCase(256, ExpectedResult = (IEnumerator) null)]
+        [TestCase(512, ExpectedResult = (IEnumerator) null)]
+        [TestCase(1024, ExpectedResult = (IEnumerator) null)]
+        [TestCase(1048576, ExpectedResult = (IEnumerator) null)]
+        public IEnumerator JobSystemBatchSize(int batchSize)
+        {
+            JobSystemModel.BatchSize = batchSize;
             yield return StartTest("JobSystem");
         }
 
@@ -42,6 +64,13 @@ namespace PerformanceTests
         {
             yield return LoadScene(sceneName);
             yield return RunTest();
+            yield return UnloadScene(sceneName);
+        }
+
+        private static IEnumerator UnloadScene(string sceneName)
+        {
+            yield return SceneManager.UnloadSceneAsync(sceneName);
+            yield return null;
         }
 
         private static IEnumerator LoadScene(string sceneName)

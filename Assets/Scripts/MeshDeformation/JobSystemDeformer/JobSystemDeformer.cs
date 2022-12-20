@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace MeshDeformation.JobSystemDeformer
 
             _scheduled = true;
             _job = new DeformerJob(_speed, _amplitude, Time.time, _vertices);
-            _handle = _job.Schedule(_vertices.Length, 64);
+            _handle = _job.Schedule(_vertices.Length, JobSystemModel.BatchSize);
         }
 
         private void CompleteJob()

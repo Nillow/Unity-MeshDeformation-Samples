@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.PerformanceTesting",
-        "Unity.PerformanceTesting.Editor"
+        "Unity.PerformanceTesting.Editor",
+        "MeshDeformation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
