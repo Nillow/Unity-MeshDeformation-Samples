@@ -4,7 +4,7 @@ namespace MeshDeformation.JobSystemDeformer
     {
         public static int BatchSize
         {
-            get => _batchSize == 0 ? 64 : _batchSize;
+            get => _batchSize == 0 ? 1 : _batchSize;
             set => _batchSize = value;
         }
 
